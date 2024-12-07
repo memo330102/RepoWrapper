@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RepoWrapper.Infrastructure\RepoWrapper.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

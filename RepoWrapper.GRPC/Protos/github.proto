@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "RepoWrapper.GRPC";
+
+service GithubWrapper {
+  rpc SearchRepos (RepoReq) returns (RepoResp);
+}
+
+message RepoReq {
+  string Querry = 1;
+}
+
+message RepoResp {
+  int32 TotalCount = 1;
+  repeated Repo Respos = 2;
+}
+
+message Repo {
+  string Name = 1;
+  string OwnerLogin = 2;
+}
