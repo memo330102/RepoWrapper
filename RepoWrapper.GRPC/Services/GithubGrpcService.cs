@@ -1,6 +1,7 @@
 ﻿using Grpc.Core;
 using RepoWrapper.Application.Interfaces;
 using RepoWrapper.GRPC.Helper;
+using RepoWrapper.GRPC.Mapping;
 
 namespace RepoWrapper.GRPC.Services
 {
@@ -8,10 +9,13 @@ namespace RepoWrapper.GRPC.Services
     {
         private readonly IGithubService _githubService;
         private readonly ILogger<GithubGrpcService> _logger;
-        public GithubGrpcService(IGithubService githubService, ILogger<GithubGrpcService> logger)
+        private readonly IGrpcMapper _mapper;
+
+        public GithubGrpcService(IGithubService githubService, ILogger<GithubGrpcService> logger, IGrpcMapper mapper)
         {
             _githubService = githubService;
             _logger = logger;
+            _mapper = mapper;
         }
         public override async Task<RepoResp> SearchRepos(RepoReq request, ServerCallContext context)
         {
@@ -29,7 +33,7 @@ namespace RepoWrapper.GRPC.Services
                     return GrpcErrorHandler.HandleError("Search Repositories from github cannot be null.", _logger, context, StatusCode.Unknown);
                 }
 
-                var result = GrpcMapperHelper.MapToGrpcRepoResp(response);
+                var result = _mapper.MapToGrpcRepoResp(response);
 
                 return result;
             }

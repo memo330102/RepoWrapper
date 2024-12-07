@@ -1,10 +1,10 @@
 ﻿using RepoWrapper.Domain.DTOs.Github;
 
-namespace RepoWrapper.GRPC.Helper
+namespace RepoWrapper.GRPC.Mapping
 {
-    public static class GrpcMapperHelper
+    public class GrpcMapper : IGrpcMapper
     {
-        public static RepoResp MapToGrpcRepoResp(GitHubSearchApiResponseDTO gitHubSearchApiResponse)
+        public RepoResp MapToGrpcRepoResp(GitHubSearchApiResponseDTO gitHubSearchApiResponse)
         {
             var repoResp = new RepoResp
             {
@@ -17,7 +17,7 @@ namespace RepoWrapper.GRPC.Helper
                     gitHubSearchApiResponse.items.Select(repo => new Repo
                     {
                         Name = repo.name ?? string.Empty,
-                        OwnerLogin = repo.owner?.login ?? string.Empty 
+                        OwnerLogin = repo.owner?.login ?? string.Empty
                     })
                 );
             }

@@ -1,6 +1,7 @@
 using Refit;
 using RepoWrapper.Application.Interfaces;
 using RepoWrapper.Application.Services;
+using RepoWrapper.GRPC.Mapping;
 using RepoWrapper.GRPC.Services;
 using RepoWrapper.Infrastructure.GRPCInterfaces;
 using Serilog;
@@ -17,6 +18,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
 builder.Services.AddGrpc();
 
 builder.Services.AddScoped<IGithubService, GithubService>();
+builder.Services.AddScoped<IGrpcMapper, GrpcMapper>();
 
 var githubApiBaseUrl = builder.Configuration["GitHubApi:BaseUrl"];
 builder.Services.AddRefitClient<IGithubServiceGrpcClient>()
