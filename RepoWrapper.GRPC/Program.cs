@@ -3,8 +3,16 @@ using RepoWrapper.Application.Interfaces;
 using RepoWrapper.Application.Services;
 using RepoWrapper.GRPC.Services;
 using RepoWrapper.Infrastructure.GRPCInterfaces;
+using Serilog;
+
+Log.Logger = new LoggerConfiguration() 
+    .WriteTo.Console()
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, services, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddGrpc();
 
