@@ -1,11 +1,6 @@
 ﻿using RepoWrapper.Application.Interfaces;
 using RepoWrapper.Domain.DTOs.Github;
 using RepoWrapper.Infrastructure.GRPCInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RepoWrapper.Application.Services
 {
@@ -22,7 +17,7 @@ namespace RepoWrapper.Application.Services
             var response = await _githubServiceGrpcClient.SearchRepositoriesAsync(query);
             if (!response.IsSuccessStatusCode)
             {
-                throw new Exception("Something went wrong while fetching repositories from GitHub.");
+                throw new Exception(response.Error.Message + " Something went wrong while fetching repositories from GitHub.");
             }
 
             return response.Content;

@@ -2,6 +2,7 @@
 using RepoWrapper.Application.Interfaces;
 using RepoWrapper.GRPC.Helper;
 using RepoWrapper.GRPC.Mapping;
+using Serilog;
 
 namespace RepoWrapper.GRPC.Services
 {
@@ -19,36 +20,19 @@ namespace RepoWrapper.GRPC.Services
         }
         public override async Task<RepoResp> SearchRepos(RepoReq request, ServerCallContext context)
         {
-            try
+            if (string.IsNullOrWhiteSpace(request.Querry))
             {
-                if (string.IsNullOrWhiteSpace(request.Querry))
-                {
-                    return GrpcErrorHandler.HandleError("Query parameter is required.", _logger, context, StatusCode.InvalidArgument);
-                }
-
-                var response = await _githubService.SearchRepositoriesAsync(request.Querry);
-
-                if(response == null)
-                {
-                    return GrpcErrorHandler.HandleError("Search Repositories from github cannot be null.", _logger, context, StatusCode.Unknown);
-                }
-
-                var result = _mapper.MapToGrpcRepoResp(response);
-
-                return result;
+                throw new RpcException(new Status(StatusCode.InvalidArgument, "Query parameter is required."));
             }
-            catch (RpcException ex)
+
+            var response = await _githubService.SearchRepositoriesAsync(request.Querry);
+
+            if (response == null)
             {
-                return GrpcErrorHandler.HandleError($"GRPC error: {ex.Message}", _logger, context, StatusCode.Internal);
+                throw new RpcException(new Status(StatusCode.Unknown, "Search Repositories from GitHub cannot be null."));
             }
-            catch (ApplicationException ex)
-            {
-                return GrpcErrorHandler.HandleError($"Application error: {ex.Message}", _logger, context, StatusCode.Internal);
-            }
-            catch (Exception ex)
-            {
-                return GrpcErrorHandler.HandleError($"Unexpected error: {ex.Message}", _logger, context, StatusCode.Unknown);
-            }
+
+            return _mapper.MapToGrpcRepoResp(response);
         }
     }
 }

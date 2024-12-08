@@ -1,5 +1,6 @@
 using Refit;
 using RepoWrapper.Application.Interfaces;
+using RepoWrapper.Application.Middleware;
 using RepoWrapper.Application.Services;
 using RepoWrapper.GRPC.Mapping;
 using RepoWrapper.GRPC.Services;
@@ -28,11 +29,18 @@ builder.Services.AddRefitClient<IGithubServiceGrpcClient>()
         c.DefaultRequestHeaders.UserAgent.ParseAdd("Wrapper");
         c.DefaultRequestHeaders.Accept.ParseAdd("application/vnd.github+json");
     });
+builder.Services.AddGrpc(options =>
+{
+    options.Interceptors.Add<GrpcExceptionHandlerInterceptor>();
+});
+
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.MapGrpcService<GithubGrpcService>();
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+app.MapHealthChecks("/health");
 
 app.Run();
