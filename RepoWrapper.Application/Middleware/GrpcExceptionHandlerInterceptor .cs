@@ -62,47 +62,5 @@ namespace RepoWrapper.Application.Middleware
                 _ => (StatusCode.Internal, "An internal server error occurred.")
             };
         }
-
-        private RpcException HandleException(ServerCallContext context, Exception exception)
-        {
-            StatusCode statusCode;
-            string message;
-
-            switch (exception)
-            {
-                case ArgumentException _:
-                    statusCode = StatusCode.InvalidArgument;
-                    message = "Invalid argument.";
-                    break;
-                case InvalidOperationException _:
-                    statusCode = StatusCode.FailedPrecondition;
-                    message = "Invalid operation.";
-                    break;
-                case ApplicationException _:
-                    statusCode = StatusCode.Internal;
-                    message = "An application error occurred.";
-                    break;
-                case RpcException _:
-                    statusCode = StatusCode.Internal;
-                    message = "A GRPC error occurred.";
-                    break;
-                case KeyNotFoundException _:
-                    statusCode = StatusCode.NotFound;
-                    message = "Resource not found.";
-                    break;
-                default:
-                    statusCode = StatusCode.Internal;
-                    message = "An internal server error occurred.";
-                    break;
-            }
-
-            var trailers = new Metadata
-            {
-                { "error-message", exception.Message },
-                { "stack-trace", exception.StackTrace ?? "No stack trace available" }
-            };
-
-            return new RpcException(new Status(statusCode, message), trailers);
-        }
     }
 }
