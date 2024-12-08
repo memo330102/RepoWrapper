@@ -1,8 +1,6 @@
 ﻿using Grpc.Core;
 using RepoWrapper.Application.Interfaces;
-using RepoWrapper.GRPC.Helper;
 using RepoWrapper.GRPC.Mapping;
-using Serilog;
 
 namespace RepoWrapper.GRPC.Services
 {

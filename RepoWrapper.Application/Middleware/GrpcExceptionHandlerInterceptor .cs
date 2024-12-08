@@ -1,8 +1,6 @@
 ﻿using Serilog;
 using Grpc.Core;
 using Grpc.Core.Interceptors;
-using Serilog.Core;
-using System.Text.RegularExpressions;
 
 namespace RepoWrapper.Application.Middleware
 {
