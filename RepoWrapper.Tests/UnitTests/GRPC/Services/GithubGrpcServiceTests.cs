@@ -5,11 +5,6 @@ using RepoWrapper.Domain.DTOs.Github;
 using RepoWrapper.GRPC;
 using RepoWrapper.GRPC.Mapping;
 using RepoWrapper.GRPC.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RepoWrapper.Tests.UnitTests.GRPC.Services
 {
