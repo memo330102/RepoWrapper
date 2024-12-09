@@ -86,6 +86,12 @@ GrpcExceptionHandlerInterceptor
 -
 Centralized error handling with contextual logging:
 
+TESTING WITH POSTMAN
+Step 1: Import .proto File
+-
+![image](https://github.com/user-attachments/assets/a7c83f5c-db58-4b0b-9d6c-cec9ae2c76fe)
+
+
 
 
 
