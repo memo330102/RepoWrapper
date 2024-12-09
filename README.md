@@ -38,6 +38,10 @@ Prerequisites
 -
 .NET 8
 
+Postman (latest version with gRPC support)
+
+GitHub API access (public API)
+
 Configuration
 -
 Add the GitHub API base URL and logging informations in the appsettings.json file:
