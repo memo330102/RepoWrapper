@@ -1,4 +1,4 @@
-GITHUB GRPC SERVICE WRAPPER
+                                             GITHUB GRPC SERVICE WRAPPER
 OVERVIEW
 - 
 This project implements a gRPC service to wrap GitHub's API for repository search. It provides a SearchRepos RPC method, allowing clients to query GitHub repositories efficiently. The service handles API calls, transforms data into gRPC-compatible responses, and provides global error handling and logging.
@@ -13,6 +13,7 @@ Unit & Integration Tests: Comprehensive tests for service methods and mappers.
 Logging: Structured logging with Serilog, supports console and file outputs.
 
 ARCHITECTURE
+
 Projects
 -
 Application: Core service logic, including GithubService and exception handling middleware.
@@ -22,6 +23,7 @@ GRPC: Service implementation (GithubGrpcService), mappings, and proto definition
 Tests: Unit and integration tests for all components.
 
 SETUP AND CONFIGURATION
+
 Prerequisites
 -
 .NET 8
@@ -57,6 +59,7 @@ gRPC: For service implementation and communication.
 Moq: For testing mocks.
 
 CORE CLASSES
+
 GithubGrpcService
 -
 Handles incoming gRPC requests and delegates work to the application service.
