@@ -87,9 +87,42 @@ GrpcExceptionHandlerInterceptor
 Centralized error handling with contextual logging:
 
 TESTING WITH POSTMAN
-Step 1: Import .proto File
 -
+Set Up Postman for gRPC Testing
+-
+Ensure you are using the latest version of Postman, which supports gRPC.
 ![image](https://github.com/user-attachments/assets/a7c83f5c-db58-4b0b-9d6c-cec9ae2c76fe)
+
+Open Postman and create a new request.
+
+Select gRPC as the request type from the dropdown menu 
+
+Import the .proto File
+-
+Click on "Import a Proto File" in the gRPC request setup.
+![image](https://github.com/user-attachments/assets/f5e94b40-9fcd-49a6-b2f9-e1156f91ce5a)
+
+Upload your github.proto file in project directory.
+
+Postman will parse the proto file and display the service and method details.
+
+Configure the gRPC Request
+-
+URL: Set the gRPC server address (grpc://localhost:5118 for local testing).
+
+Service: Choose the GithubWrapper service from the dropdown after loading the .proto file.
+
+Method: Select the SearchRepos method.
+
+Send a Test Request
+-
+In the Message section, use the following JSON structure to send request : 
+
+{
+  "Querry": "wrapper"
+}
+
+![image](https://github.com/user-attachments/assets/d027df8c-ccdf-4873-9f04-708ccdf647ea)
 
 
 
